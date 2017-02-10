@@ -60,9 +60,23 @@ public class ElasticsearchTweetController {
 
             // TODO Build the query
 
-            String query = "";
+            //String query = "";
+            String query;
+            if(search_parameters[0].equals("")){
+                query = search_parameters[0];
+            }
 
-            Search search = new Search.Builder(search_parameters[0])
+            else{
+                query = "{\n" +
+                        "   \"query\" : {\n" +
+                        "       \"term\" : { \"Message\" : \"" + search_parameters[0] + "\" }\n" +
+                        "   }\n" +
+                        "}";
+
+            }
+
+            //Search search = new Search.Builder(search_parameters[0])
+            Search search = new Search.Builder(query)
                     .addIndex("testing")
                     .addType("tweet")
                     .build();
@@ -85,9 +99,6 @@ public class ElasticsearchTweetController {
             return tweets;
         }
     }
-
-
-
 
     public static void verifySettings() {
         if (client == null) {

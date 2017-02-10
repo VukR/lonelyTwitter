@@ -18,6 +18,7 @@ public abstract class Tweet implements Tweetable {
         this.id = id;
     }
 
+
     public Tweet(String message){
         this.message = message;
         this.date = new Date();
